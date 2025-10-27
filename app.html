@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="estilo.css" />
+	<link rel="icon" type="image/png" href="imagens/favicon.png">
+	<script src="jogo.js"></script>
+</head>
+
+<body onresize="ajustaTamanhoPalcoJogo()">
+
+	<div class="painel">
+		<div class="container-painel">
+			<div class="vidas">
+				<img id="v1" src="imagens/coracao_cheio.png" />
+				<img id="v2" src="imagens/coracao_cheio.png" />
+				<img id="v3" src="imagens/coracao_cheio.png" />
+			</div>
+
+			<div class="cronometro">Tempo restante: <span id="cronometro"></span></div>
+		</div>
+
+	</div>
+
+	<script>
+		document.getElementById('cronometro').innerHTML = tempo
+
+		var criaNoz = setInterval(function () {
+			posicaoRandomica()
+		}, criaNozTempo)
+	</script>
+</body>
+
+</html>

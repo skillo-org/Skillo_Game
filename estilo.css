@@ -1,0 +1,74 @@
+html {
+	cursor: url(imagens/cursor.png) 30 30, auto;
+}
+
+body {
+	width: 100%;
+	height: 100dvh;
+	margin: 0;
+	padding: 0;
+
+	background-image: url(imagens/bg.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.noz1 {
+	width: 60px;
+	height: 60px;
+}
+
+.noz2 {
+	width: 80px;
+	height: 80px;
+}
+
+.noz3 {
+	width: 100px;
+	height: 100px;
+}
+
+.ladoA {
+	transform: scaleX(1);
+}
+
+.ladoB {
+	transform: scaleX(-1);
+}
+
+.painel {
+	position: absolute;
+	width: 190px;
+	padding: 10px;
+	left: 0px;
+	background-color: rgba(62, 38, 8, 0.61);
+	bottom: 0px;
+	opacity: 0.8;
+	width: max-content;
+	border-radius: 0px 20px 20px 0px;
+
+}
+
+.container-painel{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.vidas {
+	float: left;
+}
+
+.cronometro {
+	color: white;
+	float: left;
+	width: max-content;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.game_image{
+	width: 500px;
+	height: auto;
+}
