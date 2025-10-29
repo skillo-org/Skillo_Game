@@ -18,7 +18,7 @@ if (nivel === 'facil') {
 } else if (nivel === 'normal') {
 	criaNozTempo = 1000
 } else if (nivel === 'dificil') {
-	criaNozTempo = 700
+	criaNozTempo = 820
 }
 
 function ajustaTamanhoPalcoJogo() {
