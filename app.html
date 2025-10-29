@@ -2,34 +2,63 @@
 <html>
 
 <head>
-	<title></title>
+	 <title>Skillo Pega Nozes</title>
+	
 	<meta charset="UTF-8" />
+	
 	<link rel="stylesheet" href="estilo.css" />
+	
 	<link rel="icon" type="image/png" href="imagens/favicon.png">
+	
 	<script src="jogo.js"></script>
+
+	 <audio id="musica_inicial" src="musicas/musica_inicial.mp3" loop preload="auto"></audio>
+	 <audio id="som_coletar" src="musicas/get_item.mp3" preload="auto"></audio>
+	 <audio id="som_miss" src="musicas/lost_item.mp3" preload="auto"></audio>
+
 </head>
 
 <body onresize="ajustaTamanhoPalcoJogo()">
 
-	<div class="painel">
-		<div class="container-painel">
-			<div class="vidas">
-				<img id="v1" src="imagens/coracao_cheio.png" />
-				<img id="v2" src="imagens/coracao_cheio.png" />
-				<img id="v3" src="imagens/coracao_cheio.png" />
-			</div>
+	 <div class="painel">
+		  <div class="container-painel">
+			   <div class="vidas">
+				    <img id="v1" src="imagens/coracao_cheio.png" />
+				    <img id="v2" src="imagens/coracao_cheio.png" />
+				    <img id="v3" src="imagens/coracao_cheio.png" />
+				   </div>
 
-			<div class="cronometro">Tempo restante: <span id="cronometro"></span></div>
-		</div>
+			   <div class="cronometro">Tempo restante: <span id="cronometro"></span></div>
+			  </div>
 
-	</div>
+		 </div>
 
+	
 	<script>
-		document.getElementById('cronometro').innerHTML = tempo
+		/* MUDANÇA IMPORTANTE: 
+		  O bloco 'DOMContentLoaded' foi removido daqui.
+		  O seu 'jogo.js' já cuida de iniciar o jogo e o cronômetro
+		  no momento certo. Manter os dois aqui causa o erro.
+		*/
 
-		var criaNoz = setInterval(function () {
-			posicaoRandomica()
-		}, criaNozTempo)
+		// Este bloco 'window.onload' é para a música e está correto.
+		window.onload = function () {
+			var audio = document.getElementById('musica_inicial');
+			if (audio) {
+				audio.volume = 0.7;
+
+				// Sua linha de 15 segundos foi MANTIDA, como você pediu.
+				audio.currentTime = 15;
+
+				var promise = audio.play();
+
+				if (promise !== undefined) {
+					promise.catch(error => {
+						console.log("Autoplay de áudio bloqueado pelo navegador.");
+					});
+				}
+			}
+		}
 	</script>
 </body>
 

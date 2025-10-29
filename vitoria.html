@@ -1,36 +1,60 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<meta charset="UTF-8" />
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+	<title>Skillo Pega Nozes</title>
+	<meta charset="UTF-8" />
 
-		<link rel="stylesheet" href="estilo.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		<link rel="icon" type="image/png" href="imagens/favicon.png">
+	<link rel="stylesheet" href="estilo.css" />
 
-	</head>
-	<body>
+	<link rel="icon" type="image/png" href="imagens/favicon.png">
 
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="d-flex justify-content-center">
-						<img src="imagens/vitoria.png" />
-					</div>
-				</div>
-			</div>
+	<audio id="victory" src="musicas/victory.mp3" preload="auto" autoplay></audio>
 
 
-			<div class="row">
-				<div class="col">
-					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-dark btn-lg" onclick="window.location.href = 'index.html' ">Reiniciar</button>
-					</div>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<img src="imagens/vitoria.png" />
 				</div>
 			</div>
 		</div>
 
-	</body>
+
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<button type="button" class="btn btn-dark btn-lg"
+						onclick="window.location.href = 'index.html' ">Reiniciar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.onload = function () {
+			var audio = document.getElementById('victory');
+			if (audio) {
+				audio.volume = 1; // Definir um volume (opcional)
+				var promise = audio.play();
+
+				if (promise !== undefined) {
+					promise.catch(error => {
+						// Autoplay foi bloqueado. 
+						console.log("Autoplay de áudio bloqueado pelo navegador.");
+					});
+				}
+			}
+		}
+	</script>
+</body>
+
 </html>

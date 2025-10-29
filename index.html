@@ -1,83 +1,132 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		<link rel="stylesheet" href="estilo.css" />
+<head>
+	<title>Skillo Pega Nozes</title>
 
-		<link rel="icon" type="image/png" href="imagens/favicon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		<script>
-			function showOverlay(message) {
-				var overlay = document.getElementById('message-overlay')
-				var overlayText = document.getElementById('overlay-text')
-				overlayText.textContent = message
-				overlay.style.display = 'flex'
+	<link rel="stylesheet" href="estilo.css" />
+
+	<link rel="icon" type="image/png" href="imagens/favicon.png">
+	<audio id="musica_inicial" src="musicas/musica_inicial.mp3" loop preload="auto"></audio>
+
+
+	<script>
+		function showOverlay(message) {
+			var overlay = document.getElementById('message-overlay')
+			var overlayText = document.getElementById('overlay-text')
+			overlayText.textContent = message
+			overlay.style.display = 'flex'
+		}
+
+		function hideOverlay() {
+			var overlay = document.getElementById('message-overlay')
+			overlay.style.display = 'none'
+		}
+
+		function iniciarJogo() {
+			var nivel = document.getElementById('nivel').value
+
+			if (nivel === '') {
+				showOverlay('Selecione um nível para iniciar o jogo!')
+				return false
 			}
 
-			function hideOverlay() {
-				var overlay = document.getElementById('message-overlay')
-				overlay.style.display = 'none'
+			window.location.href = "app.html?" + nivel
+
+		}
+	</script>
+
+	<script>
+		// background music: try to autoplay, otherwise play on first user interaction
+		function setupBackgroundMusic() {
+			var audio = document.getElementById('musica_inicial');
+			if (!audio) return;
+			audio.volume = 0.5;
+			var p = audio.play();
+			if (p !== undefined) {
+				p.catch(function () {
+					var playOnInteraction = function () {
+						audio.play().catch(function () { });
+						document.removeEventListener('click', playOnInteraction);
+					};
+					document.addEventListener('click', playOnInteraction);
+				});
 			}
+		}
+		if (document.readyState === 'complete' || document.readyState === 'interactive') {
+			setupBackgroundMusic();
+		} else {
+			document.addEventListener('DOMContentLoaded', setupBackgroundMusic);
+		}
+	</script>
+</head>
 
-			function iniciarJogo() {
-				var nivel = document.getElementById('nivel').value
+<body>
 
-				if(nivel === '') {
-					showOverlay('Selecione um nível para iniciar o jogo!')
-					return false
+	<div id="message-overlay"
+		style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:9999;">
+		<div
+			style="background:#fff; padding:20px 24px; border-radius:8px; max-width:90%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+			<p id="overlay-text" style="margin:0 0 12px; font-size:16px; color:#333;"></p>
+			<button type="button" class="btn btn-primary" onclick="hideOverlay()">OK</button>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<img src="imagens/game.png" class="game_image" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<div class="mb-2">
+						<select class="form-control" id="nivel">
+							<option value="">-- Selecione o nível --</option>
+							<option value="facil">Fácil</option>
+							<option value="normal">Normal</option>
+							<option value="dificil">Difícil</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<button type="button" class="btn btn-danger btn-lg" onclick="iniciarJogo()">Iniciar Jogo</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.onload = function () {
+			var audio = document.getElementById('musica_inicial');
+			if (audio) {
+				audio.volume = 1; // Definir um volume (opcional)
+				var promise = audio.play();
+
+				if (promise !== undefined) {
+					promise.catch(error => {
+						// Autoplay foi bloqueado. 
+						console.log("Autoplay de áudio bloqueado pelo navegador.");
+					});
 				}
-
-				window.location.href = "app.html?" + nivel
-
 			}
-		</script>
-	</head>
-	<body>
-
-		<!-- Overlay message (hidden by default) -->
-		<div id="message-overlay" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:9999;">
-			<div style="background:#fff; padding:20px 24px; border-radius:8px; max-width:90%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-				<p id="overlay-text" style="margin:0 0 12px; font-size:16px; color:#333;"></p>
-				<button type="button" class="btn btn-primary" onclick="hideOverlay()">OK</button>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="d-flex justify-content-center">
-						<img src="imagens/game.png" class="game_image" />
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<div class="d-flex justify-content-center">
-						<div class="mb-2">
-							<select class="form-control" id="nivel">
-								<option value="">-- Selecione o nível --</option>
-								<option value="facil">Fácil</option>
-								<option value="normal">Normal</option>
-								<option value="dificil">Difícil</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
+		}
+	</script>
 
 
-			<div class="row">
-				<div class="col">
-					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-danger btn-lg" onclick="iniciarJogo()" >Iniciar Jogo</button>
-					</div>
-				</div>
-			</div>
-		</div>
+</body>
 
-	</body>
 </html>
